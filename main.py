@@ -15,7 +15,7 @@ def add_data():
     cur.execute('INSERT INTO table_name (column1, column2) VALUES (?, ?)', (data['column1'], data['column2']))
     conn.commit()
     conn.close()
-    return ''
+    return '<center>Data Has Been Successfully Added</center>'
 
 if __name__ == '__main__':
     app.run(debug=True)
