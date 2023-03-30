@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Data</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div class="container">
+		<h1>Add Data</h1>
+		<form id="add-data-form" method="post" action="{{ url_for('add_data') }}">
+			<label for="column1">Column 1:</label>
+			<input type="text" id="column1" name="column1"><br><br>
+			<label for="column2">Column 2:</label>
+			<input type="text" id="column2" name="column2"><br><br>
+			<button type="submit">Add Data</button>
+		</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		new Vue({
+			el: '#add-data-form',
+			methods: {
+				addData: function(event) {
+					event.preventDefault();
+					let formData = new FormData(event.target);
+					let data = {};
+					formData.forEach(function(value, key) {
+						data[key] = value;
+					});
+					axios.post('/add_data', data)
+						.then(function(response) {
+							console.log(response.data);
+							alert(response.data.message);
+						})
+						.catch(function(error) {
+							console.log(error);
+							alert('Error adding data');
+						});
+				}
+			}
+		});
+	</script>
+</body>
+</html>
